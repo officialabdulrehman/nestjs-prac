@@ -35,8 +35,9 @@ export class MongoDAO<TData extends DTO> implements DAOI<TData>{
   // EXTERNAL FUNCTIONS BELOW
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async find(cond: any, page = 1, perPage = 10, populate: string[] = [],
+  public async find(cond: any = {}, page = 1, perPage = 10, populate: string[] = [],
     sort: Record<string, DBSort> = { "createdAt": DBSort.DESCENDING }): Promise<IPaginateResult<TData>> {
+    return await this.model.find().exec() as any
     this.throwIfNotValidPageOrPerPage(page, perPage)
     const { skip, limit } = this.getPaginationSkipAndLimitCounts(page, perPage)
     const unslicedData = await this.createAndExecuteFindQuery(cond, populate, skip, limit, sort);
@@ -162,7 +163,7 @@ export class MongoDAO<TData extends DTO> implements DAOI<TData>{
     let query = this.model.find(cond);
     this.populateQuery(query, populate)
     query = query.skip(skip).limit(limit).sort(sort)
-    return await query;
+    return await query.exec();
   }
 
 }

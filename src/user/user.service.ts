@@ -8,13 +8,13 @@ import { User } from './entities/user.entity';
 @Injectable()
 export class UserService {
 
-  constructor(@InjectModel('User') private readonly userModal: Model<User>) {
-
-  }
+  constructor(
+    @InjectModel('User') private readonly userModal: Model<User>,
+  ) { }
 
   async create(createUserInput: CreateUserInput) {
-    const createdCat = new this.userModal(createUserInput);
-    return await createdCat.save();
+    const user = new this.userModal(createUserInput);
+    return await user.save();
   }
 
   async findAll() {

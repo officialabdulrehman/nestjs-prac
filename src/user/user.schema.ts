@@ -1,8 +1,14 @@
-import mongoose from "mongoose";
+import { model, Schema } from "mongoose";
+import { DTOCreate } from "../datamodels/dto";
+import { User } from "./entities/user.entity";
 
-export const UserSchema = new mongoose.Schema({
+export interface UserDocI extends DTOCreate<User>, Document { }
+
+export const UserSchema = new Schema({
   name: String,
   age: Number,
 }, {
   timestamps: true
 });
+
+export const UserModel = model<UserDocI>("User", UserSchema);
