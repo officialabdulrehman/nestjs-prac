@@ -17,7 +17,7 @@ type Mutation {
   createPost(createPostInput: CreatePostInput!): Post!
   createUser(createUserInput: CreateUserInput!): User!
   removePost(id: Int!): Post!
-  removeUser(id: Int!): User!
+  removeUser(id: String!): User!
   updatePost(updatePostInput: UpdatePostInput!): Post!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
@@ -29,7 +29,7 @@ type Post {
 
 type Query {
   findAll: [User!]!
-  findOne(id: Int!): User!
+  findOne(id: String!): User!
   post(id: Int!): Post!
 }
 
@@ -40,10 +40,9 @@ input UpdatePostInput {
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  age: Int
-  id: Int!
-  name: String
+  age: Int!
+  id: String!
+  name: String!
 }
 
 type User {

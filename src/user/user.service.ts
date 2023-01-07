@@ -21,15 +21,26 @@ export class UserService {
     return await this.userModal.find().exec()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    return await this.userModal.findById(id).exec()
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserInput: UpdateUserInput) {
+    const user = await this.userModal.findById(id).exec()
+
+    if (updateUserInput.name) {
+      user.name = updateUserInput.name
+    }
+
+    if (updateUserInput.age) {
+      user.age = updateUserInput.age
+    }
+
+    return await user.save()
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const user = await this.findOne(id)
+    return await user.delete()
   }
 }
