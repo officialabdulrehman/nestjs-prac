@@ -2,7 +2,7 @@ import { Document, HydratedDocument, Model, Query, Types } from "mongoose";
 import { IPaginateResult } from "./pagination";
 import { DBSort } from "./sorting";
 
-import { BadRequestException, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { DTO, DTOCreate, DTOPatch } from "../datamodels/dto";
 import { extractFields, flattenObj } from "../util/common";
 import { DAOI } from "./daoI";
@@ -14,10 +14,10 @@ export type ModelType<T extends DTO> = Model<TDoc<T>>
 const ID = Types.ObjectId;
 export type MongoQuery<T extends DTO> = Query<HydratedDocument<TDoc<T>, object, object>[], HydratedDocument<TDoc<T>, object, object>, object, T>
 
+@Injectable()
+export abstract class MongoDAO<TData extends DTO> implements DAOI<TData>{
 
-export class MongoDAO<TData extends DTO> implements DAOI<TData>{
-
-  protected model: ModelType<TData>
+  private model: ModelType<TData>
   protected dto: TData = null
 
   constructor(model: ModelType<TData>, dto: TData) {

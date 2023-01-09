@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UserDAO } from './dao/user.dao';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
@@ -10,6 +11,7 @@ export class UserService {
 
   constructor(
     @InjectModel('User') private readonly userModal: Model<User>,
+    private readonly userDAO: UserDAO
   ) { }
 
   async create(createUserInput: CreateUserInput) {
@@ -18,7 +20,8 @@ export class UserService {
   }
 
   async findAll() {
-    return await this.userModal.find().exec()
+    return await this.userDAO.find()
+    // return await this.userModal.find().exec()
   }
 
   async findOne(id: string) {

@@ -5,7 +5,7 @@ import { DBSort } from "./sorting";
 
 
 export interface DAOI<T extends DTO> {
-  find(cond: IQuery<T>, page: number, perPage: number, populates?: string[],
+  find(cond?: IQuery<T>, page?: number, perPage?: number, populates?: string[],
     sort?: Record<string, DBSort>): Promise<IPaginateResult<T>>;
 
   create(data: DTOCreate<T>): Promise<string>;
