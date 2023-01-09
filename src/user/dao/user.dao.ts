@@ -53,13 +53,13 @@ export class UserDAO {
   async update(id: string, updateUserInput: UpdateUserInput) {
     const user = await this.userModal.findById(id).exec()
 
-    if (updateUserInput.name) {
-      user.name = updateUserInput.name
-    }
+    // if (updateUserInput.name) {
+    //   user.name = updateUserInput.name
+    // }
 
-    if (updateUserInput.age) {
-      user.age = updateUserInput.age
-    }
+    // if (updateUserInput.age) {
+    //   user.age = updateUserInput.age
+    // }
 
     return await user.save()
   }
