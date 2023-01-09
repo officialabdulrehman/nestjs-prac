@@ -15,11 +15,12 @@ export class UserService {
   }
 
   async findAll() {
-    return await this.userDAO.find()
+    const result = await this.userDAO.find()
+    return result
   }
 
   async findOne(id: string) {
-    return await this.userDAO.findOne(id)
+    return await this.userDAO.findById(id)
   }
 
   async update(id: string, updateUserInput: UpdateUserInput) {
@@ -27,6 +28,6 @@ export class UserService {
   }
 
   async remove(id: string) {
-    return await this.userDAO.remove(id)
+    return await this.userDAO.delete(id)
   }
 }

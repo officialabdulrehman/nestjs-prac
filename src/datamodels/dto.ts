@@ -1,7 +1,15 @@
+import { Field, ObjectType } from "@nestjs/graphql"
+
+@ObjectType()
 export class DTO {
-  id: string = undefined
-  updatedAt: Date = undefined
-  createdAt: Date = undefined
+  @Field()
+  id: string = null
+
+  @Field()
+  updatedAt: Date = null
+
+  @Field()
+  createdAt: Date = null
 }
 
 export type DTOCreate<T> = Omit<T, keyof DTO>

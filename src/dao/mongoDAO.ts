@@ -17,7 +17,7 @@ export type MongoQuery<T extends DTO> = Query<HydratedDocument<TDoc<T>, object, 
 @Injectable()
 export abstract class MongoDAO<TData extends DTO> implements DAOI<TData>{
 
-  private model: ModelType<TData>
+  protected model: ModelType<TData>
   protected dto: TData = null
 
   constructor(model: ModelType<TData>, dto: TData) {
@@ -37,7 +37,6 @@ export abstract class MongoDAO<TData extends DTO> implements DAOI<TData>{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async find(cond: any = {}, page = 1, perPage = 10, populate: string[] = [],
     sort: Record<string, DBSort> = { "createdAt": DBSort.DESCENDING }): Promise<IPaginateResult<TData>> {
-    return await this.model.find().exec() as any
     this.throwIfNotValidPageOrPerPage(page, perPage)
     const { skip, limit } = this.getPaginationSkipAndLimitCounts(page, perPage)
     const unslicedData = await this.createAndExecuteFindQuery(cond, populate, skip, limit, sort);
